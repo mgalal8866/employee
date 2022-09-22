@@ -6,7 +6,9 @@ import state from "./state";
 import * as getters from './getters';
 import * as mutations from "./mutations";
 import * as actions from "./actions";
-import empolye from "./modules/empolyeess/index.js"
+import empolye from "./modules/empolyeess"
+import allowances from "./modules/allowances"
+import deductions from "./modules/deductions"
 
 export default new Vuex.Store({
     state,
@@ -14,7 +16,9 @@ export default new Vuex.Store({
     mutations,
     actions,
     modules: {
-        empolye
+        empolye,
+        allowances,
+        deductions
         // cart
     }
 });

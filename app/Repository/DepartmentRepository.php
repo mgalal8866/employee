@@ -23,7 +23,7 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         return DepartmentResource::collection($this->model::all());
     }
 
-    public function CreateEmp($requset)
+    public function Createdepartment($requset)
     {
         $this->model::create(array_merge($requset->all()));
     }

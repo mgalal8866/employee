@@ -9,119 +9,26 @@
           dark
           v-bind="attrs"
           v-on="on"
-        >New Employee</v-btn>
+        >New Allowances</v-btn>
       </template>
       <v-card>
 
         <v-form @submit.prevent="submitForm">
-        <v-card-title>
-          <span class="text-h5">New Employee</span>
+        <v-card-title color="blue darken-1"  >
+          <span class="text-h5"  >New Allowances</span>
         </v-card-title>
         <v-card-text>
 
           <v-container>
             <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field label="Name *" required v-model="datanewemplyoe[0].name" ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-text-field label="Phone *" v-model="datanewemplyoe[0].phone" ></v-text-field>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-menu
-                  v-model="menu2"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="datanewemplyoe[0].date1"
-                      label="Date Hire * "
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker v-model="datanewemplyoe[0].date1" @input="menu2 = false"></v-date-picker>
-                </v-menu>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-menu
-                  v-model="menu3"
-                  :close-on-content-click="false"
-                  :nudge-right="40"
-                  transition="scale-transition"
-                  offset-y
-                  min-width="auto"
-                >
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-text-field
-                      v-model="datanewemplyoe[0].date2"
-                      label="Date Birth * "
-                      prepend-icon="mdi-calendar"
-                      readonly
-                      v-bind="attrs"
-                      v-on="on"
-                    ></v-text-field>
-                  </template>
-                  <v-date-picker v-model="datanewemplyoe[0].date2" @input="menu3 = false"></v-date-picker>
-                </v-menu>
+              <v-col cols="12">
+                <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field label="Address * "  v-model="datanewemplyoe[0].address" persistent-hint required></v-text-field>
+                <v-text-field label="Description *" required v-model="description" ></v-text-field>
               </v-col>
-              <v-col cols="12" sm="6">
-                <v-select
-                  :items="[{'id':'1','name':'Male'},{ 'id':'2','name':'Female'}]"
-                  item-text="name"
-                  item-value="id"
-                  label="Gender *"  v-model="datanewemplyoe[0].gender"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-select
-                  :items="this.$store.state.branch"
-                  item-text="name"
-                  item-value="id"
-                  label="Branch *"  v-model="datanewemplyoe[0].branch"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-select
-                  :items="this.$store.state.department"
-                  item-text="name"
-                  item-value="id"
-                  label="Department *"  v-model="datanewemplyoe[0].department"
-                  required
-                ></v-select>
-              </v-col>
-              <v-col cols="12" sm="6">
-                <v-select
-                  :items="this.$store.state.position"
-                  item-text="name"
-                  item-value="id"
-                  label="Position *" v-model="datanewemplyoe[0].position"
-                  required
-                ></v-select>
-              </v-col>
-
-              <!-- <v-col cols="12" sm="6">
-                <v-autocomplete
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                  label="Interests"
-                  multiple
-                ></v-autocomplete>
-              </v-col>-->
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
-
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -131,44 +38,46 @@
     </v-form>
       </v-card>
     </v-dialog>
-    <!-- <p v-if="error in field " :key="error" class="text-sm">
-        {{ error }}
-    </p> -->
-    <!-- <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul>
-          <v-list :for="error in errors">{{ error }}</v-list>
-        </ul>
-    </p> -->
+    <v-dialog v-model="dialogedit" persistent max-width="600px">
+
+        <v-card>
+  
+          <v-form @submit.prevent="submitForm">
+          <v-card-title color="blue darken-1"  >
+            <span class="text-h5"  >Edit Allowances</span>
+          </v-card-title>
+          <v-card-text>
+  
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field label="Description *" required v-model="description" ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialogedit = false">Close</v-btn>
+            <v-btn color="blue darken-1" text  type="submit" @click="dialogedit = false">Save</v-btn>
+          </v-card-actions>
+      </v-form>
+        </v-card>
+      </v-dialog>
     <v-simple-table class="mt-3" v-slot:default>
       <template elevation="5">
         <thead>
           <tr>
-            <th class="text-left">Name</th>
-            <th class="text-left">Phone</th>
-            <th class="text-left">gender</th>
-            <th class="text-left">Date Hire</th>
-            <th class="text-left">Date Birth</th>
-            <th class="text-left">Address</th>
-            <th class="text-left">Branch</th>
-            <th class="text-left">Department</th>
-            <th class="text-left">Position</th>
-            <th class="text-left">State</th>
-            <th class="text-left">Action</th>
+            <th>Name</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in employes" :key="item.id">
+          <tr v-for="item in itemallowances" :key="item.id">
             <td>{{ item.name }}</td>
-            <td>{{ item.phone }}</td>
-            <td>{{ item.gender }}</td>
-            <td>{{ item.date_hire }}</td>
-            <td>{{ item.date_birth }}</td>
-            <td>{{ item.address }}</td>
-            <td>{{ item.branch }}</td>
-            <td>{{ item.department_id }}</td>
-            <td>{{ item.position_id }}</td>
-            <td><v-chip color="green " dark> {{item.state}}</v-chip></td>
             <td>
               <v-menu offset-y>
                 <template v-slot:activator="{ on, attrs }">
@@ -185,11 +94,11 @@
 
                 <v-list>
                   <v-list>
-                    <v-list-item>
-                      <v-icon small color="orange">mdi-pencil</v-icon>
+                    <v-list-item @click="dialogedit=true;  nameall=item.name;description=item.description ; id=item.id;">
+                      <v-icon small color="orange" >mdi-pencil</v-icon>
                       <v-list-item-title small>Edit</v-list-item-title>
                     </v-list-item>
-                    <v-list-item>
+                    <v-list-item  @click="deleteallowances(item.id)">
                       <v-icon small color="red">mdi-cancel</v-icon>
                       <v-list-item-title>Delete</v-list-item-title>
                     </v-list-item>
@@ -204,35 +113,34 @@
   </v-card>
 </template>
   <script>
+    import { mapState, mapActions } from "vuex";
 export default {
   mounted() {
-    this.$store.dispatch("getemploye");
-    this.$store.dispatch("getallbranch");
-    this.$store.dispatch("getallposition");
-    this.$store.dispatch("getalldepartment");
+    this.getallowances();
   },
   computed: {
-    employes() {
-      return this.$store.state.employes;
-    }
+    ...mapState({itemallowances: state=> state.allowances.allowances}),
+    
   },
   data: () => ({
-    datanewemplyoe:[
-        {date1: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
-         date2: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10)}
-        ],
-    dialog: false,
-    menu2: false,
-    menu3: false,
+    dialog:false,
+    dialogedit:false,
+    id:'',
+    nameall:'',
+    description:''
   }),
   methods: {
+    ...mapActions("allowances", ["getallowances","newallowances","deleteallowances"]),
     submitForm() {
-        this.$store.dispatch("newemploye",this.datanewemplyoe[0]);
+      
+        this.newallowances({nameall:this.nameall, description:this.description});
+      
         }
     }
 };
 </script>
 <style>
+
 .my-menu {
   background-color: rgb(143, 188, 206);
   contain: initial;

@@ -7,11 +7,7 @@
   <script>
   import Navbar from "../components/Navbar";
   import Footer from "../components/Footer";
-//   import Category from "../components/Category.vue";
-//   import Product from "../components/Product.vue";
-//   import Pack from "../components/Pack.vue";
-//   import Client from "../components/Client.vue";
-//   import Partner from "../components/Partner.vue";
+
   export default {
     name: "Home",
     data: () => ({
@@ -20,11 +16,6 @@
     components: {
       Navbar,
       Footer,
-    //   Category,
-    //   Product,
-    //   Pack,
-    //   Client,
-    //   Partner,
     },
   };
   </script>

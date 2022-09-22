@@ -1,125 +1,129 @@
 <template>
-  <v-card elevation="5">
-    <v-dialog v-model="dialog" persistent max-width="600px">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          md
-          class="m-2 elevation-2 darken-3"
-          color="green"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >New Employee</v-btn>
-      </template>
-      <v-card>
+    <v-card elevation="5">
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            md
+            class="m-2 elevation-2 darken-3"
+            color="green"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >New Deductions</v-btn>
+        </template>
+        <v-card>
 
-        <v-form @submit.prevent="submitForm">
-        <v-card-title>
-          <span class="text-h5">New Employee</span>
-        </v-card-title>
-        <v-card-text>
+          <v-form @submit.prevent="submitForm">
+          <v-card-title color="blue darken-1"  >
+            <span class="text-h5"  >New Deductions</span>
+          </v-card-title>
+          <v-card-text>
 
-          <v-container>
-            <v-row>
-              <v-col cols="12" sm="6">
-                <v-text-field label="Name *" required v-model="datanewemplyoe[0].name" ></v-text-field>
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text  type="submit" @click="dialog = false">Save</v-btn>
-        </v-card-actions>
-    </v-form>
-      </v-card>
-    </v-dialog>
+            <v-container>
+              <v-row>
+                <v-col cols="12">
+                  <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
+                </v-col>
+                <v-col cols="12">
+                  <v-text-field label="Description *" required v-model="description" ></v-text-field>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" text  type="submit" @click="dialog = false">Save</v-btn>
+          </v-card-actions>
+      </v-form>
+        </v-card>
+      </v-dialog>
 
-    <v-simple-table class="mt-3" v-slot:default>
-      <template elevation="5">
-        <thead>
-          <tr>
-            <th class="text-left">Name</th>
-            <th class="text-left">Phone</th>
-            <th class="text-left">gender</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in employes" :key="item.id">
-            <td>{{ item.name }}</td>
-            <td>{{ item.phone }}</td>
-            <td>
-              <v-menu offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                  <v-btn
-                    class="rounded-xl green darken-3 text-capitalize elevation-2 ml-2"
-                    dark
-                    small
-                    v-bind="attrs"
-                    v-on="on"
-                  >
-                    <v-icon large color="white darken-2">mdi-gear-</v-icon>Action
-                  </v-btn>
-                </template>
+      <v-simple-table class="mt-3" v-slot:default>
+        <template elevation="5">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in itemdeductions" :key="item.id">
+              <td>{{ item.name }}</td>
+              <td>
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      class="rounded-xl green darken-3 text-capitalize elevation-2 ml-2"
+                      dark
+                      small
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon large color="white darken-2">mdi-gear-</v-icon>Action
+                    </v-btn>
+                  </template>
 
-                <v-list>
                   <v-list>
-                    <v-list-item>
-                      <v-icon small color="orange">mdi-pencil</v-icon>
-                      <v-list-item-title small>Edit</v-list-item-title>
-                    </v-list-item>
-                    <v-list-item>
-                      <v-icon small color="red">mdi-cancel</v-icon>
-                      <v-list-item-title>Delete</v-list-item-title>
-                    </v-list-item>
+                    <v-list>
+                      <v-list-item>
+                        <v-icon small color="orange">mdi-pencil</v-icon>
+                        <v-list-item-title small>Edit</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item @click="deletedeductions(item.id)">
+                        <v-icon small color="red">mdi-cancel</v-icon>
+                        <v-list-item-title  >Delete</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
                   </v-list>
-                </v-list>
-              </v-menu>
-            </td>
-          </tr>
-        </tbody>
-      </template>
-    </v-simple-table>
-  </v-card>
-</template>
-  <script>
-export default {
-  mounted()
-  {
-    this.$store.dispatch("getemploye");
+                </v-menu>
+              </td>
+            </tr>
+          </tbody>
+        </template>
+      </v-simple-table>
+    </v-card>
+  </template>
+    <script>
+      import { mapState, mapActions } from "vuex";
+  export default {
+    mounted() {
+      this.getdeductions();
     },
-  computed: {
-    employes() {
-      return this.$store.state.employes;
-    }
-  },
-  data: () => ({
-    dialog: false,
-  }),
-  methods: {
-    submitForm() {
-        this.$store.dispatch("newemploye",this.datanewemplyoe[0]);
+    computed: {
+      ...mapState({itemdeductions: state=> state.deductions.deductions}),
+
+    },
+    data: () => ({
+      dialog:false,
+      nameall:'',
+      description:''
+    }),
+    methods: {
+      ...mapActions("deductions", ["getdeductions","newdeductions","deletedeductions"]),
+      submitForm() {
+          this.newdeductions({nameall:this.nameall, description:this.description});
         }
-    }
-};
-</script>
-<style>
-.my-menu {
-  background-color: rgb(143, 188, 206);
-  contain: initial;
-  overflow: visible;
-}
-.my-menu::before {
-  position: absolute;
-  content: "";
-  top: 0;
-  right: 10px;
-  transform: translateY(-100%);
-  width: 10px;
-  height: 13px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 13px solid rgb(143, 188, 206);
-}
-</style>
+      }
+  };
+  </script>
+  <style>
+
+  .my-menu {
+    background-color: rgb(143, 188, 206);
+    contain: initial;
+    overflow: visible;
+  }
+  .my-menu::before {
+    position: absolute;
+    content: "";
+    top: 0;
+    right: 10px;
+    transform: translateY(-100%);
+    width: 10px;
+    height: 13px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 13px solid rgb(143, 188, 206);
+  }
+  </style>

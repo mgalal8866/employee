@@ -85,7 +85,7 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
-                  :items="this.$store.state.branch"
+                  :items="this.$store.state.empolye.branch"
                   item-text="name"
                   item-value="id"
                   label="Branch *"  v-model="datanewemplyoe[0].branch"
@@ -94,7 +94,7 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
-                  :items="this.$store.state.department"
+                  :items="this.$store.state.empolye.department"
                   item-text="name"
                   item-value="id"
                   label="Department *"  v-model="datanewemplyoe[0].department"
@@ -103,7 +103,7 @@
               </v-col>
               <v-col cols="12" sm="6">
                 <v-select
-                  :items="this.$store.state.position"
+                  :items="this.$store.state.empolye.position"
                   item-text="name"
                   item-value="id"
                   label="Position *" v-model="datanewemplyoe[0].position"
@@ -120,7 +120,7 @@
               </v-col>-->
             </v-row>
           </v-container>
-          <small>*indicates required field</small>
+          <!-- <small>*indicates required field</small> -->
 
         </v-card-text>
         <v-card-actions>
@@ -204,11 +204,14 @@
   </v-card>
 </template>
   <script>
-  import { mapState, mapGetters, mapActions } from "vuex";
+  import { mapState, mapActions } from "vuex";
 export default {
   mounted() {
     this.getemploye();
- 
+    this.getallbranch();
+    this.getallposition();
+    this.getalldepartment();
+
     // this.$store.dispatch("getemploye");
     // this.$store.dispatch("getallbranch");
     // this.$store.dispatch("getallposition");
@@ -216,6 +219,8 @@ export default {
   },
   computed: {
     ...mapState({employes: state=> state.empolye.employes}),
+
+
     // employes() {
     //   return this.$store.empolye.state.employes;
     // }
@@ -230,8 +235,7 @@ export default {
     menu3: false,
   }),
   methods: {
-     ...mapActions("empolye", ["getemploye","newemploye"]),
-     
+     ...mapActions("empolye", ["getallposition","getalldepartment","getallbranch","getemploye","newemploye"]),
     submitForm() {
         this.newemploye(this.datanewemplyoe[0]);
          // this.$store.dispatch("newemploye",this.datanewemplyoe[0]);
