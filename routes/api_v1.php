@@ -3,41 +3,39 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\V1\AllowancesController;
-use App\Http\Controllers\Api\V1\BranchController;
-use App\Http\Controllers\Api\V1\DeductionsController;
-use App\Http\Controllers\Api\V1\PositionController;
-use App\Http\Controllers\Api\V1\DepartmentController;
-use App\Http\Controllers\Api\V1\EmployeessController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
-
-
-Route::get('/allbranch', [BranchController::class, 'index']);
-Route::get('/allposition', [PositionController::class, 'index']);
-Route::get('/alldepartment', [DepartmentController::class, 'index']);
-
-Route::get('/allallowances', [AllowancesController::class, 'index']);
-Route::Post('/new/allowances', [AllowancesController::class, 'store']);
-Route::Post('/delete/allowances/{id?}','AllowancesController@delete');
-
-// Route::group(DeductionsController::class,function(){
-    Route::get('/alldeductions', [DeductionsController::class, 'index']);
-    Route::Post('/new/deductions','DeductionsController@store');
-    Route::Post('/delete/deductions/{id?}','DeductionsController@delete');
-// });
-Route::get('/employe', [EmployeessController::class, 'index']);
-Route::Post('/new/employe','EmployeessController@store');
-
+Route::middleware('VerifyAPIKey')->group(function() {
+    Route::controller(EmployeessController::class)->group(function() {
+        Route::get('/employe','index');
+        Route::Post('/new/employe','store');
+        Route::get('/delete/employe/{id?}','delete');
+    });
+    Route::controller(BranchController::class)->group(function() {
+        Route::get('/allbranch', 'index');
+        Route::Post('/new/branch','store');
+        Route::get('/delete/branch/{id?}','delete');
+    });
+    Route::controller(PositionController::class)->group(function() {
+        Route::get('/allposition', 'index');
+        Route::Post('/new/position','store');
+        Route::get('/delete/position/{id?}','delete');
+    });
+    Route::controller(DepartmentController::class)->group(function() {
+        Route::get('/alldepartment', 'index');
+        Route::Post('/new/department','store');
+        Route::get('/delete/department/{id?}','delete');
+    });
+    Route::controller(AllowancesController::class)->group(function() {
+        Route::get('/allallowances', 'index');
+        Route::Post('/new/allowances','store');
+        Route::get('/delete/allowances/{id?}','delete');
+    });
+    Route::controller(DeductionsController::class)->group(function() {
+        Route::get('/alldeductions', 'index');
+        Route::Post('/new/deductions','store');
+        Route::get('/delete/deductions/{id?}','delete');
+    });
+});
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

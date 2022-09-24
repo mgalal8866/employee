@@ -9,13 +9,13 @@
           dark
           v-bind="attrs"
           v-on="on"
-        >New Allowances</v-btn>
+        >New Branch</v-btn>
       </template>
       <v-card>
 
         <v-form @submit.prevent="submitForm">
         <v-card-title color="blue darken-1"  >
-          <span class="text-h5"  >New Allowances</span>
+          <span class="text-h5"  >New Branch</span>
         </v-card-title>
         <v-card-text>
 
@@ -23,9 +23,6 @@
             <v-row>
               <v-col cols="12">
                 <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
-              </v-col>
-              <v-col cols="12">
-                <v-text-field label="Description *" required v-model="description" ></v-text-field>
               </v-col>
             </v-row>
           </v-container>
@@ -41,20 +38,17 @@
     <v-dialog v-model="dialogedit" persistent max-width="600px">
 
         <v-card>
-  
+
           <v-form @submit.prevent="submitForm">
           <v-card-title color="blue darken-1"  >
-            <span class="text-h5"  >Edit Allowances</span>
+            <span class="text-h5"  >Edit Branch</span>
           </v-card-title>
           <v-card-text>
-  
+
             <v-container>
               <v-row>
                 <v-col cols="12">
                   <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Description *" required v-model="description" ></v-text-field>
                 </v-col>
               </v-row>
             </v-container>
@@ -76,7 +70,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in itemallowances" :key="item.id">
+          <tr v-for="item in itembranch" :key="item.id">
             <td>{{ item.name }}</td>
             <td>
               <v-menu offset-y>
@@ -98,7 +92,7 @@
                       <v-icon small color="orange" >mdi-pencil</v-icon>
                       <v-list-item-title small>Edit</v-list-item-title>
                     </v-list-item>
-                    <v-list-item  @click="deleteallowances(item.id)">
+                    <v-list-item  @click="deletebranch(item.id)">
                       <v-icon small color="red">mdi-cancel</v-icon>
                       <v-list-item-title>Delete</v-list-item-title>
                     </v-list-item>
@@ -116,25 +110,24 @@
     import { mapState, mapActions } from "vuex";
 export default {
   mounted() {
-    this.getallowances();
+    this.getbranch();
   },
   computed: {
-    ...mapState({itemallowances: state=> state.allowances.allowances}),
-    
+    ...mapState({itembranch: state=> state.branch.branch}),
+
   },
   data: () => ({
     dialog:false,
     dialogedit:false,
     id:'',
     nameall:'',
-    description:''
   }),
   methods: {
-    ...mapActions("allowances", ["getallowances","newallowances","deleteallowances"]),
+    ...mapActions("branch", ["getbranch","newbranch","deletebranch"]),
     submitForm() {
-      
-        this.newallowances({nameall:this.nameall, description:this.description});
-      
+
+        this.newbranch({nameall:this.nameall});
+
         }
     }
 };

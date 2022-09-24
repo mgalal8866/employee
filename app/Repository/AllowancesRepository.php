@@ -16,20 +16,19 @@ class AllowancesRepository implements AllowancesRepositoryInterface
     public function __construct()
     {
         $this->model = Allowances::class;
+        $this->Resource = AllowancesResource::class;
     }
 
     public function getallAllowances()
     {
-        return AllowancesResource::collection($this->model::all());
+        return  $this->Resource::collection($this->model::all());
     }
 
     public function CreateAllowances($requset)
     {
-        
-
         $date = $this->model::create($requset->all());
        if($date){
-        return AllowancesResource::collection($this->model::all());
+        return  $this->Resource::collection($this->model::all());
        };
     }
     public function DeleteAllowances($id)
@@ -37,9 +36,9 @@ class AllowancesRepository implements AllowancesRepositoryInterface
         $date = $this->model::find($id);
         $date->delete();
        if($date){
-        return AllowancesResource::collection($this->model::all());
+        return   $this->Resource::collection($this->model::all());
        };
     }
 
-    
+
 }

@@ -4,6 +4,7 @@ namespace App\RepositoryInterface;
 
 interface  BranchRepositoryInterface{
      public function getallbranch();
-     public function CreateEmp($requset);
+     public function Createbranch($requset);
+     public function DeleteBranch($id);
 }
 

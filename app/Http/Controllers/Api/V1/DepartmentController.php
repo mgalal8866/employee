@@ -18,4 +18,12 @@ class DepartmentController extends Controller
    {
     return $this->Department->getallDepartment() ;
    }
+   public function store(Request $request)
+   {
+    return $this->Department->Createdepartment($request->all());
+   }
+   public function Delete($id)
+   {
+    return $this->Department->DeleteDepartment($id) ;
+   }
 }

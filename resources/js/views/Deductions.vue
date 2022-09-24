@@ -27,6 +27,9 @@
                 <v-col cols="12">
                   <v-text-field label="Description *" required v-model="description" ></v-text-field>
                 </v-col>
+                <v-col cols="12">
+                    <v-text-field label="Amount *" required v-model="amount" ></v-text-field>
+                  </v-col>
               </v-row>
             </v-container>
           </v-card-text>
@@ -44,12 +47,16 @@
           <thead>
             <tr>
               <th>Name</th>
+              <th>Descripiton</th>
+              <th>Amount</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="item in itemdeductions" :key="item.id">
               <td>{{ item.name }}</td>
+              <td>{{ item.description }}</td>
+              <td>{{ item.amount }}</td>
               <td>
                 <v-menu offset-y>
                   <template v-slot:activator="{ on, attrs }">
@@ -97,12 +104,13 @@
     data: () => ({
       dialog:false,
       nameall:'',
-      description:''
+      description:'',
+      amount:0
     }),
     methods: {
       ...mapActions("deductions", ["getdeductions","newdeductions","deletedeductions"]),
       submitForm() {
-          this.newdeductions({nameall:this.nameall, description:this.description});
+          this.newdeductions({nameall:this.nameall, description:this.description,amount:this.amount});
         }
       }
   };

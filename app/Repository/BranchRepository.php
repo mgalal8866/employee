@@ -11,20 +11,34 @@ use App\RepositoryInterface\BranchRepositoryInterface;
 class BranchRepository implements BranchRepositoryInterface
 {
 
-    protected $model;
+    protected $model,$BranchResource;
     // public function __construct(Model $model)
     public function __construct()
     {
         $this->model = Branch::class;
+        $this->Resource = BranchResource::class;
     }
 
     public function getallbranch()
     {
-        return BranchResource::collection($this->model::all());
+        return  $this->Resource::collection($this->model::all());
     }
 
-    public function CreateEmp($requset)
+    public function Createbranch($requset)
     {
-        $this->model::create(array_merge($requset->all()));
+        $date = $this->model::create($requset);
+        if($date){
+         return  $this->Resource::collection($this->model::all());
+        };
+
     }
+    public function DeleteBranch($id)
+    {
+        $date = $this->model::find($id);
+        $date->delete();
+       if($date){
+        return  $this->Resource::collection($this->model::all());
+       };
+    }
+
 }

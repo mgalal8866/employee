@@ -16,15 +16,29 @@ class DepartmentRepository implements DepartmentRepositoryInterface
     public function __construct()
     {
         $this->model = Department::class;
+        $this->Resource =DepartmentResource::class;
     }
 
     public function getalldepartment()
     {
-        return DepartmentResource::collection($this->model::all());
+        return $this->Resource::collection($this->model::all());
     }
+
 
     public function Createdepartment($requset)
     {
-        $this->model::create(array_merge($requset->all()));
+        $date = $this->model::create($requset);
+        if($date){
+         return  $this->Resource::collection($this->model::all());
+        };
+
+    }
+    public function DeleteDepartment($id)
+    {
+        $date = $this->model::find($id);
+        $date->delete();
+       if($date){
+        return  $this->Resource::collection($this->model::all());
+       };
     }
 }

@@ -24,17 +24,17 @@ class AllowancesController extends Controller
 
    public function Store(AllowancesRequest $request)
    {
- 
+
     // return$this->validate(
-    //     $request, 
+    //     $request,
     //     ['name' => 'required'],
     //     ['name.required' => 'this is my custom error message for required']
     // );
      //   return $request->all();
      return $this->Allowances->CreateAllowances($request) ;
    }
-   public function Delete($id){
-
+   public function Delete($id)
+   {
     return $this->Allowances->DeleteAllowances($id) ;
-}
+   }
 }

@@ -18,5 +18,12 @@ class PositionController extends Controller
    {
     return $this->Position->getallposition() ;
    }
-
+   public function store(Request $request)
+   {
+    return $this->Position->Createposition($request->all());
+   }
+   public function Delete($id)
+   {
+    return $this->Position->DeletePosition($id) ;
+   }
 }

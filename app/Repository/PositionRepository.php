@@ -15,12 +15,29 @@ class PositionRepository implements PositionRepositoryInterface
     public function __construct()
     {
         $this->model = Position::class;
+        $this->Resource = PositionResource::class;
     }
 
     public function getallposition()
     {
-        return PositionResource::collection($this->model::all());
+        return  $this->Resource::collection($this->model::all());
     }
 
-     
+    public function Createposition($requset)
+    {
+        $date = $this->model::create($requset);
+        if($date){
+         return  $this->Resource::collection($this->model::all());
+        };
+
+    }
+    public function DeletePosition($id)
+    {
+        $date = $this->model::find($id);
+        $date->delete();
+       if($date){
+        return  $this->Resource::collection($this->model::all());
+       };
+    }
+
 }

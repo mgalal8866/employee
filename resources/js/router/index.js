@@ -40,9 +40,9 @@ const routes = [
     name: 'branch'
 },
 {
-    path: '/position ',
+    path: '/position',
     component: Position ,
-    name: 'position '
+    name: 'position'
 },
   ]
 const router = new VueRouter({

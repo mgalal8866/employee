@@ -9,6 +9,9 @@ import * as actions from "./actions";
 import empolye from "./modules/empolyeess"
 import allowances from "./modules/allowances"
 import deductions from "./modules/deductions"
+import position from "./modules/position"
+import department from "./modules/department"
+import branch from "./modules/branch"
 
 export default new Vuex.Store({
     state,
@@ -18,7 +21,9 @@ export default new Vuex.Store({
     modules: {
         empolye,
         allowances,
-        deductions
-        // cart
+        deductions,
+        position,
+        department,
+        branch
     }
 });
