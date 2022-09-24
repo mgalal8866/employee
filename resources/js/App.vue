@@ -19,21 +19,39 @@
         </template>
 
         <v-divider></v-divider>
+        <!-- <v-list-item-group active-class="gray--text"> -->
+        <v-list-item-group >
+        <template  v-for="item in items" >
+            <v-divider   :key="item.title+1"  v-if="item.line != null"></v-divider>
+            <v-list-item  class="d-flex" :to="item.link" :key="item.title" >
+                <v-list-item-icon>
+                    <v-icon>{{ item.icon }}</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                    <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item-content>
+            </v-list-item>
+        </template>
+        </v-list-item-group>
 
-        <v-list dense>
-          <v-list-item
+        <!-- <v-list dense>
+           
+
+          <v-list-item 
             v-for="item in items"
             :key="item.title"
             :to="item.link"
-          >
+            >
             <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
+
           </v-list-item>
-        </v-list>
+   
+        </v-list> -->
       </v-navigation-drawer>
 
       <v-app-bar app>
@@ -70,12 +88,12 @@
             drawer: null ,
            items: [
              { title:  ('Employee'), icon: 'mdi-account-tie', link: 'Employee' },
-             { title:  ('Deductions'), icon: 'mdi-currency-usd-off', link: 'deductions' },
-             { title:  ('Allowances'), icon: 'mdi-currency-usd', link: 'allowances' },
-             { title:  ('Branch'), icon: 'mdi-bank-outline', link: 'branch' },
-             { title:  ('Position '), icon: 'mdi-ballot', link: 'position' },
-             { title:  ('Department'), icon: 'mdi-badge-account-horizontal', link: 'department' },
-             { title: 'About', icon: 'mdi-help-box',link: 'About' },
+             { title:  ('Deductions'), icon: 'mdi-currency-usd-off', link: 'deductions' ,line:'1' },
+             { title:  ('Allowances'), icon: 'mdi-currency-usd', link: 'allowances', line:'1' },
+             { title:  ('Branch'), icon: 'mdi-bank-outline', link: 'branch' ,line:'1' },
+             { title:  ('Position '), icon: 'mdi-ballot', link: 'position',line:'1'  },
+             { title:  ('Department'), icon: 'mdi-badge-account-horizontal', link: 'department',line:'1'  },
+             { title: 'About', icon: 'mdi-help-box',link: 'About',line:'1'  },
            ],
          }
        },

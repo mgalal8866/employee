@@ -54,7 +54,10 @@
             <v-container>
               <v-row>
                 <v-col cols="12">
-                  <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
+                  <v-text-field label="Name *" required v-model="nameall"   ></v-text-field>
+                  <!-- <p v-if="errors.has('name')" class="alert-danger">
+                    {{ errors.first('name') }}
+                  </p> -->
                 </v-col>
                 <v-col cols="12">
                   <v-text-field label="Description *" required v-model="description" ></v-text-field>
@@ -73,6 +76,15 @@
       </v-form>
         </v-card>
       </v-dialog>
+      <!--   <p v-if="error in itemerrors " :key="error" class="text-sm">
+        {{ error }}
+    </p> 
+      <p v-if="errors.length">
+        <b>Please correct the following error(s):</b>
+        <ul> -->
+          <v-list :for="error in itemerrors">{{ error }}</v-list>
+         <!--</ul>
+    </p> -->
     <v-simple-table class="mt-3" v-slot:default>
       <template elevation="5">
         <thead>
@@ -81,7 +93,6 @@
             <th>Discription</th>
             <th>Amount</th>
             <th>Action</th>
-
           </tr>
         </thead>
         <tbody>
@@ -131,9 +142,10 @@ export default {
   },
   computed: {
     ...mapState({itemallowances: state=> state.allowances.allowances}),
-
+    ...mapState({itemerrors:     state=> state.errors.errors}),
   },
   data: () => ({
+    // errors:[],
     dialog:false,
     dialogedit:false,
     id:'',
@@ -143,11 +155,10 @@ export default {
   }),
   methods: {
     ...mapActions("allowances", ["getallowances","newallowances","deleteallowances"]),
-    submitForm() {
-
+    submitForm() 
+    {
         this.newallowances({nameall:this.nameall, description:this.description,amount:this.amount});
-
-        }
+    }
     }
 };
 </script>

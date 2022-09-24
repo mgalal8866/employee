@@ -8,19 +8,25 @@ export const getallowances = ({ commit }) => {
         commit('SET_Allowances', response.data.data);
     })
 }
-export const newallowances= ({ commit},{nameall,description,amount}) => {
+export const newallowances=async  ({ commit},{nameall,description,amount}) => {
     const data = {'name':nameall,'description':description,'amount':amount};
-            // errors.value='';
-    try{
-        axios.post(baseUrl +'/new/allowances' ,data,{headers: headers})
+
+    await  axios.post(baseUrl +'/new/allowances' ,data,{headers: headers})
     .then(response => {commit('SET_Allowances', response.data.data);})
-    }catch(e){
-        if(e.response.state === 422){
-            console.log( 'errors');
-            // console.log( e.response.data.errors);
-            // errors.value = e.response.data.errors;
-        }
-    };
+    .catch(e       => {commit('SET_Errors',   e.response.data.errors);
+                        console.log(e.response.data.errors);})
+
+    //.catch(function (e) {
+    //     if (e.response) {response => {commit('SET_Errors', e.response.data.errors);}
+    //       console.log(e.response.data.errors);
+    //       console.log(error.response.status);
+    //     //   console.log(error.response.headers);
+    //     } else if (error.request) {
+    //       console.log(error.request);
+    //     } else {
+    //       console.log('Error', error.message);
+    //     }
+    //   })
 }
 export const deleteallowances= ({ commit},id) => {
     axios.get(baseUrl +'/delete/allowances/' + id,{headers: headers})
