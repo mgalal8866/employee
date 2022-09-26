@@ -25,7 +25,7 @@ class EmployeessResource extends JsonResource
                 'branch'        => $this->branch->name??'N/A',
                 'department_id' => $this->department->name??'N/A',
                 'position_id'   => $this->position->name??'N/A',
-                'selary_id'     => $this->selary_id??'N/A',
+                'salary_id'     => $this->salary->salary??'N/A',
                 'attache'       => $this->attache[0]['key']??'N/A',
                 'state'         => $this->namestate //'<span class="badge badge-secondary">'.$this->namestate.'</span>',
                 ];

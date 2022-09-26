@@ -35,6 +35,16 @@ Route::middleware('VerifyAPIKey')->group(function() {
         Route::Post('/new/deductions','store');
         Route::get('/delete/deductions/{id?}','delete');
     });
+    Route::controller(EmpolyeeAllowancesController::class)->group(function() {
+        Route::get('/get/empolyee/allowances', 'index');
+        Route::Post('/add/empolyee/allowances','store');
+        Route::get('/delete/empolyee/allowances/{id?}','delete');
+    });
+    Route::controller(EmpolyeeDeductionsController::class)->group(function() {
+        Route::get('/get/empolyee/deductions', 'index');
+        Route::Post('/add/empolyee/deductions','store');
+        Route::get('/delete/empolyee/deductions/{id?}','delete');
+    });
 });
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

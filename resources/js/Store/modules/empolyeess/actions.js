@@ -23,6 +23,11 @@ export const getalldepartment = ({ commit }) => {
     })
 }
 
+export const getdeductions = ({ commit }) => {
+    axios.get(baseUrl + '/alldeductions',{headers: headers}).then(response => {
+        commit('SET_Deductions', response.data.data);
+    })
+}
 export const newemploye = ({ commit},data1) => {
     const data = {name:data1.name,phone:data1.phone,date_hire:data1.date1,
         date_birth:data1.date2,gender:data1.gender,address:data1.address,

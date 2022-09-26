@@ -33,3 +33,30 @@ export const deleteallowances= ({ commit},id) => {
    .then(response => {commit('SET_Allowances', response.data.data) ;})
    .catch(error =>{ console.log(error);})
 }
+
+
+export const add_allowances = ({ commit},dataallowances) => {
+    const data = {employee_id:dataallowances.employee_id,allowances_id:dataallowances.allowances_id,amount:dataallowances.amount, effective_date:dataallowances.date, type:dataallowances.type};
+    try{
+            axios.post(baseUrl +'/add/empolyee/allowances' ,data,{headers: headers})
+            .then( response => {commit('SET_EmpolyeeAllowance', response.data.data);console.log( response.data.data);})
+        }catch(e){
+            if(e.response.state === 422){
+                console.log( 'errors');
+            }
+        };
+}
+
+export const getempolyeeallowances = ({ commit},dataallowances) => {
+    try{
+            axios.get(baseUrl +'/get/empolyee/allowances' ,{headers: headers})
+            .then(response => {response => {commit('SET_EmpolyeeAllowance', response.data.data);})
+        }catch(e){
+            if(e.response.state === 422){
+                console.log( 'errors');
+            }
+    };
+}
+
+
+

@@ -14,6 +14,10 @@ class Employees extends Model
         'attache' => 'array'
     ];
 
+        public function salary()
+        {
+            return $this->belongsTo(Salary::class);
+        }
         public function branch()
         {
             return $this->belongsTo(Branch::class);

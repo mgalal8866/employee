@@ -78,11 +78,11 @@
       </v-dialog>
       <!--   <p v-if="error in itemerrors " :key="error" class="text-sm">
         {{ error }}
-    </p> 
+    </p>
       <p v-if="errors.length">
         <b>Please correct the following error(s):</b>
         <ul> -->
-          <v-list :for="error in itemerrors">{{ error }}</v-list>
+          <!-- <v-list :for="error in itemerrors">{{ error }}</v-list> -->
          <!--</ul>
     </p> -->
     <v-simple-table class="mt-3" v-slot:default>
@@ -155,7 +155,7 @@ export default {
   }),
   methods: {
     ...mapActions("allowances", ["getallowances","newallowances","deleteallowances"]),
-    submitForm() 
+    submitForm()
     {
         this.newallowances({nameall:this.nameall, description:this.description,amount:this.amount});
     }
