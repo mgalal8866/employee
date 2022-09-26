@@ -50,7 +50,7 @@ export const add_allowances = ({ commit},dataallowances) => {
 export const getempolyeeallowances = ({ commit},dataallowances) => {
     try{
             axios.get(baseUrl +'/get/empolyee/allowances' ,{headers: headers})
-            .then(response => {response => {commit('SET_EmpolyeeAllowance', response.data.data);})
+            .then(response => {response => {commit('SET_EmpolyeeAllowance', response.data.data);}})
         }catch(e){
             if(e.response.state === 422){
                 console.log( 'errors');
