@@ -341,7 +341,8 @@ export default {
     dialogallowances: false,
     dialog: false,
     menu2: false,
-    menu3: false
+    menu3: false,
+    dialogtitle:'New Empolyee Allowances'
   }),
   methods: {
     ...mapActions("empolye", [
@@ -360,6 +361,17 @@ export default {
     addallowances(){
         this.add_allowances(this.dataallowances[0]);
         this.dialogallowances= false;
+    },
+    createoredit1(){
+        if( this.createoredit == 'create'){
+            this.dialogtitle='New Empolyee Allowances';
+            this.datanewemplyoe[0] = ''
+            this.dialog=true;
+        }else
+        {
+            this.dialogtitle='Edit Empolyee Allowances';
+            this.dialog=true;
+        }
     }
   }
 };

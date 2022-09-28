@@ -7,6 +7,7 @@
           class="m-2 elevation-2 darken-3"
           color="green"
           dark
+          @click="createoredit='create';createoredit1();"
           v-bind="attrs"
           v-on="on"
         >New Allowances</v-btn>
@@ -15,7 +16,7 @@
 
         <v-form @submit.prevent="submitForm">
         <v-card-title color="blue darken-1"  >
-          <span class="text-h5"  >New Allowances</span>
+          <span class="text-h5"  >{{ dialogtitle }}</span>
         </v-card-title>
         <v-card-text>
 
@@ -36,55 +37,11 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text  type="submit" @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" text  type="submit" >Save</v-btn>
         </v-card-actions>
     </v-form>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="dialogedit" persistent max-width="600px">
-
-        <v-card>
-
-          <v-form @submit.prevent="submitForm">
-          <v-card-title color="blue darken-1"  >
-            <span class="text-h5"  >Edit Allowances</span>
-          </v-card-title>
-          <v-card-text>
-
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field label="Name *" required v-model="nameall"   ></v-text-field>
-                  <!-- <p v-if="errors.has('name')" class="alert-danger">
-                    {{ errors.first('name') }}
-                  </p> -->
-                </v-col>
-                <v-col cols="12">
-                  <v-text-field label="Description *" required v-model="description" ></v-text-field>
-                </v-col>
-                <v-col cols="12">
-                    <v-text-field label="Amount *" required v-model="amount" ></v-text-field>
-                  </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogedit = false">Close</v-btn>
-            <v-btn color="blue darken-1" text  type="submit" @click="dialogedit = false">Save</v-btn>
-          </v-card-actions>
-      </v-form>
-        </v-card>
-      </v-dialog>
-      <!--   <p v-if="error in itemerrors " :key="error" class="text-sm">
-        {{ error }}
-    </p>
-      <p v-if="errors.length">
-        <b>Please correct the following error(s):</b>
-        <ul> -->
-          <!-- <v-list :for="error in itemerrors">{{ error }}</v-list> -->
-         <!--</ul>
-    </p> -->
     <v-simple-table class="mt-3" v-slot:default>
       <template elevation="5">
         <thead>
@@ -116,7 +73,7 @@
 
                 <v-list>
                   <v-list>
-                    <v-list-item @click="dialogedit=true;  nameall=item.name;description=item.description ; id=item.id;">
+                    <v-list-item @click="createoredit='edit'; createoredit1();   nameall=item.name;description=item.description ; id=item.id;">
                       <v-icon small color="orange" >mdi-pencil</v-icon>
                       <v-list-item-title small>Edit</v-list-item-title>
                     </v-list-item>
@@ -147,17 +104,39 @@ export default {
   data: () => ({
     // errors:[],
     dialog:false,
-    dialogedit:false,
     id:'',
     nameall:'',
     description:'',
-    amount:0
+    amount:0,
+    createoredit:'',
+    dialogtitle:'New Allowances'
   }),
   methods: {
-    ...mapActions("allowances", ["getallowances","newallowances","deleteallowances"]),
+    ...mapActions("allowances", ["getallowances","newallowances","editallowances","deleteallowances"]),
     submitForm()
     {
-        this.newallowances({nameall:this.nameall, description:this.description,amount:this.amount});
+        if(this.createoredit == 'create'){
+            this.newallowances({nameall:this.nameall, description:this.description,amount:this.amount});
+            this.dialog=false;
+        }else
+        {
+            console.log('edite');
+          this.editallowances({ id:this.id,nameall:this.nameall, description:this.description,amount:this.amount});
+            this.dialog=false;
+        }
+    },
+    createoredit1(){
+        if( this.createoredit == 'create'){
+            this.dialogtitle='New Allowances';
+            this.nameall='';
+            this.description='';
+            this.amount='';
+            this.dialog=true;
+        }else
+        {
+            this.dialogtitle='Edit Allowances';
+            this.dialog=true;
+        }
     }
     }
 };

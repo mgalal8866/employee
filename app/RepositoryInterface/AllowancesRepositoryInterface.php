@@ -8,5 +8,7 @@ interface  AllowancesRepositoryInterface{
      public function getallAllowances();
      public function CreateAllowances($requset);
      public function DeleteAllowances($id);
+     public function Edit($requset);
+
 }
 

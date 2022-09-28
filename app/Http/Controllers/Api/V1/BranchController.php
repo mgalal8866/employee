@@ -21,6 +21,10 @@ class BranchController extends Controller
    {
     return $this->Branch->Createbranch($request->all());
    }
+   public function edit(Request $request)
+   {
+     return $this->Branch->Edit($request) ;
+   }
    public function Delete($id)
    {
     return $this->Branch->DeleteBranch($id) ;

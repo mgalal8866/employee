@@ -22,6 +22,10 @@ class DepartmentController extends Controller
    {
     return $this->Department->Createdepartment($request->all());
    }
+   public function edit(Request $request)
+   {
+     return $this->Department->Edit($request) ;
+   }
    public function Delete($id)
    {
     return $this->Department->DeleteDepartment($id) ;

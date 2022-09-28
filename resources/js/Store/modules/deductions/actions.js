@@ -14,7 +14,12 @@ export const newdeductions= ({ commit},{nameall,description,amount}) => {
     .then(response => {commit('SET_Deductions', response.data.data) ;})
     .catch(error =>{ console.log(error);})
 }
-
+export const editdeductions= ({ commit},{id,nameall,description,amount}) => {
+    const data = {'id':id,'name':nameall,'description':description,'amount':amount};
+     axios.post(baseUrl +'/edit/deductions' ,data,{headers: headers})
+    .then(response => {commit('SET_Deductions', response.data.data) ;})
+    .catch(error =>{ console.log(error);})
+}
 export const deletedeductions= ({ commit},id) => {
      axios.get(baseUrl +'/delete/deductions/' + id,{headers: headers})
     .then(response => {commit('SET_Deductions', response.data.data) ;})

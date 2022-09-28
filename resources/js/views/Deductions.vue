@@ -9,13 +9,14 @@
             dark
             v-bind="attrs"
             v-on="on"
+            @click="createoredit='create' ;createoredit1();"
           >New Deductions</v-btn>
         </template>
         <v-card>
 
           <v-form @submit.prevent="submitForm">
           <v-card-title color="blue darken-1"  >
-            <span class="text-h5"  >New Deductions</span>
+            <span class="text-h5"  >{{ dialogtitle }}</span>
           </v-card-title>
           <v-card-text>
 
@@ -36,7 +37,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-            <v-btn color="blue darken-1" text  type="submit" @click="dialog = false">Save</v-btn>
+            <v-btn color="blue darken-1" text  type="submit">Save</v-btn>
           </v-card-actions>
       </v-form>
         </v-card>
@@ -73,8 +74,8 @@
 
                   <v-list>
                     <v-list>
-                      <v-list-item>
-                        <v-icon small color="orange">mdi-pencil</v-icon>
+                      <v-list-item  @click="createoredit='edit'; createoredit1();   nameall=item.name;description=item.description; amount=(item.amount); id=item.id;">
+                        <v-icon small color="orange" >mdi-pencil</v-icon>
                         <v-list-item-title small>Edit</v-list-item-title>
                       </v-list-item>
                       <v-list-item @click="deletedeductions(item.id)">
@@ -105,13 +106,35 @@
       dialog:false,
       nameall:'',
       description:'',
-      amount:0
+      amount:0,
+      dialogtitle:'New Deductions'
     }),
     methods: {
-      ...mapActions("deductions", ["getdeductions","newdeductions","deletedeductions"]),
+      ...mapActions("deductions", ["getdeductions","newdeductions","editdeductions","deletedeductions"]),
       submitForm() {
-          this.newdeductions({nameall:this.nameall, description:this.description,amount:this.amount});
+        if(this.createoredit == 'create'){
+            this.newdeductions({nameall:this.nameall, description:this.description,amount:this.amount});
+            this.dialog=false;
+        }else(this.createoredit == 'edit')
+        {
+
+        this.editdeductions({ id:this.id,nameall:this.nameall, description:this.description,amount:this.amount});
+        this.dialog=false;
         }
+        },
+        createoredit1(){
+        if( this.createoredit == 'create'){
+            this.dialogtitle='New Deductions';
+            this.nameall='';
+            this.description='';
+            this.amount=0;
+            this.dialog=true;
+        }else
+        {
+            this.dialogtitle='Edit Deductions';
+            this.dialog=true;
+        }
+    }
       }
   };
   </script>

@@ -1,6 +1,6 @@
 export default {
-    allowances:   [],
-    errors:[],
-    empolyee_allowance:[],
-    pagination: []
+    allowances:         [],
+    errors:             [],
+    empolyee_allowance: [],
+    pagination:         []
 }

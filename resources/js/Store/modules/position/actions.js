@@ -7,6 +7,7 @@ export const getposition = ({ commit }) => {
         commit('SET_Position', response.data.data);
     })
 }
+
 export const newposition= ({ commit},{nameall,description}) => {
     const data = {'name':nameall};
             // errors.value='';
@@ -18,6 +19,17 @@ export const newposition= ({ commit},{nameall,description}) => {
             console.log( 'errors');
             // console.log( e.response.data.errors);
             // errors.value = e.response.data.errors;
+        }
+    };
+}
+export const editposition= ({ commit},{id,nameall}) => {
+    const data = {'id':id,'name':nameall};
+    try{
+        axios.post(baseUrl +'/edit/position' ,data,{headers: headers})
+    .then(response => {commit('SET_Position', response.data.data);})
+    }catch(e){
+        if(e.response.state === 422){
+            console.log( 'errors');
         }
     };
 }

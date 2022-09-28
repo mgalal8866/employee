@@ -33,6 +33,15 @@ class DepartmentRepository implements DepartmentRepositoryInterface
         };
 
     }
+    public function Edit($requset)
+    {
+        $date = $this->model::find($requset->id);
+        $date = $date->update($requset->all());
+       if($date){
+        return $this->Resource::collection($this->model::all());
+       };
+    }
+    
     public function DeleteDepartment($id)
     {
         $date = $this->model::find($id);

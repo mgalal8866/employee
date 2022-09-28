@@ -33,6 +33,10 @@ class AllowancesController extends Controller
      //   return $request->all();
      return $this->Allowances->CreateAllowances($request) ;
    }
+   public function edit(AllowancesRequest $request)
+   {
+     return $this->Allowances->Edit($request) ;
+   }
    public function Delete($id)
    {
     return $this->Allowances->DeleteAllowances($id) ;

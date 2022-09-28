@@ -28,6 +28,14 @@ export const newallowances=async  ({ commit},{nameall,description,amount}) => {
     //     }
     //   })
 }
+export const editallowances=async  ({ commit},{id,nameall,description,amount}) => {
+    const data = {'id':id,'name':nameall,'description':description,'amount':amount};
+
+    await  axios.post(baseUrl +'/edit/allowances' ,data,{headers: headers})
+    .then(response => {commit('SET_Allowances', response.data.data);})
+    .catch(e       => {commit('SET_Errors',   e.response.data.errors);
+                        console.log(e.response.data.errors);})
+}
 export const deleteallowances= ({ commit},id) => {
     axios.get(baseUrl +'/delete/allowances/' + id,{headers: headers})
    .then(response => {commit('SET_Allowances', response.data.data) ;})

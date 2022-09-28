@@ -22,6 +22,17 @@ export const newdepartment= ({ commit},{nameall}) => {
         }
     };
 }
+export const editdepartment= ({ commit},{id,nameall}) => {
+    const data = {'id':id,'name':nameall};
+    try{
+        axios.post(baseUrl +'/edit/department' ,data,{headers: headers})
+    .then(response => {commit('SET_Department', response.data.data);})
+    }catch(e){
+        if(e.response.state === 422){
+            console.log( 'errors');
+        }
+    };
+}
 export const deletedepartment= ({ commit},id) => {
     axios.get(baseUrl +'/delete/department/' + id,{headers: headers})
    .then(response => {commit('SET_Department', response.data.data) ;})

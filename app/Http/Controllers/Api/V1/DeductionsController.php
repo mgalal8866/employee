@@ -24,6 +24,10 @@ class DeductionsController extends Controller
    {
         return $this->Deductions->CreateDeductions($request) ;
    }
+   public function edit(DeductionsRequest $request)
+   {
+        return $this->Deductions->edit($request) ;
+   }
     public function Delete($id){
 
         return $this->Deductions->DeleteDeductions($id) ;

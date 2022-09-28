@@ -7,6 +7,7 @@
           class="m-2 elevation-2 darken-3"
           color="green"
           dark
+          @click="createoredit='create'; createoredit1();"
           v-bind="attrs"
           v-on="on"
         >New Branch</v-btn>
@@ -15,7 +16,7 @@
 
         <v-form @submit.prevent="submitForm">
         <v-card-title color="blue darken-1"  >
-          <span class="text-h5"  >New Branch</span>
+          <span class="text-h5"  >{{ dialogtitle }}</span>
         </v-card-title>
         <v-card-text>
 
@@ -30,37 +31,12 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" text  type="submit" @click="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" text  type="submit" >Save</v-btn>
         </v-card-actions>
     </v-form>
       </v-card>
     </v-dialog>
-    <v-dialog v-model="dialogedit" persistent max-width="600px">
 
-        <v-card>
-
-          <v-form @submit.prevent="submitForm">
-          <v-card-title color="blue darken-1"  >
-            <span class="text-h5"  >Edit Branch</span>
-          </v-card-title>
-          <v-card-text>
-
-            <v-container>
-              <v-row>
-                <v-col cols="12">
-                  <v-text-field label="Name *" required v-model="nameall" ></v-text-field>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogedit = false">Close</v-btn>
-            <v-btn color="blue darken-1" text  type="submit" @click="dialogedit = false">Save</v-btn>
-          </v-card-actions>
-      </v-form>
-        </v-card>
-      </v-dialog>
     <v-simple-table class="mt-3" v-slot:default>
       <template elevation="5">
         <thead>
@@ -88,7 +64,7 @@
 
                 <v-list>
                   <v-list>
-                    <v-list-item @click="dialogedit=true;  nameall=item.name;description=item.description ; id=item.id;">
+                    <v-list-item @click="createoredit='edit'; createoredit1(); nameall=item.name; id=item.id;">
                       <v-icon small color="orange" >mdi-pencil</v-icon>
                       <v-list-item-title small>Edit</v-list-item-title>
                     </v-list-item>
@@ -121,14 +97,35 @@ export default {
     dialogedit:false,
     id:'',
     nameall:'',
+    dialogtitle:'New Branch',
+    createoredit:''
   }),
   methods: {
-    ...mapActions("branch", ["getbranch","newbranch","deletebranch"]),
+    ...mapActions("branch", ["getbranch","newbranch","editbranch","deletebranch"]),
     submitForm() {
+        if(this.createoredit == 'create'){
+            this.newbranch({nameall:this.nameall});
+            this.dialog=false;
+        }else
+        {
 
-        this.newbranch({nameall:this.nameall});
-
+            this.editbranch({id:this.id,nameall:this.nameall});
+            this.dialog=false;
         }
+        },
+    createoredit1(){
+
+        if( this.createoredit == 'create'){
+            this.dialogtitle='New Branch';
+            this.nameall='';
+            this.id='';
+            this.dialog=true;
+        }else
+        {
+            this.dialogtitle='Edit Branch';
+            this.dialog=true;
+        }
+    }
     }
 };
 </script>

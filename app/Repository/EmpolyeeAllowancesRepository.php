@@ -27,6 +27,7 @@ class EmpolyeeAllowancesRepository implements EmpolyeeAllowancesRepositoryInterf
         return $this->Resource::collection($this->model::all());
        };
     }
+
     public function Delete($id)
     {
         $date = $this->model::find($id);
@@ -35,5 +36,12 @@ class EmpolyeeAllowancesRepository implements EmpolyeeAllowancesRepositoryInterf
         return $this->Resource::collection($this->model::all());
        };
     }
-
+    public function Edit($requset)
+    {
+        $date = $this->model::find($requset->id);
+        $date = $date->update($requset->all());
+       if($date){
+        return $this->Resource::collection($this->model::all());
+       };
+    }
 }
