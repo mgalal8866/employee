@@ -13,4 +13,8 @@ class Deductions extends Model
     {
         return $this->hasMany(Employees::class);
     }
+    public function EmpolyeeDeductions()
+    {
+        return $this->hasMany(EmpolyeeDeductions::class);
+    }
 }

@@ -24,7 +24,7 @@ class EmpolyeeAllowancesRepository implements EmpolyeeAllowancesRepositoryInterf
     {
         $date = $this->model::create($requset->all());
        if($date){
-        return $this->Resource::collection($this->model::all());
+        return $this->Resource::collection($this->model::whereEmployeeId($date->employee_id)->get());
        };
     }
 
@@ -44,4 +44,14 @@ class EmpolyeeAllowancesRepository implements EmpolyeeAllowancesRepositoryInterf
         return $this->Resource::collection($this->model::all());
        };
     }
+    public function GetByIdEmp($id)
+    {
+
+        $date = $this->model::whereEmployeeId($id)->get();
+
+       if($date){
+        return $this->Resource::collection($date);
+       };
+    }
+
 }

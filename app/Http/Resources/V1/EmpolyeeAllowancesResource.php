@@ -14,6 +14,12 @@ class EmpolyeeAllowancesResource  extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id'            => $this->id,
+            'name'          => $this->allowances->name??'NA',
+            'type'          => ($this->type == 1)? 'Once': ($this->type == 2? 'Monthly':'Yearly'),
+            'effective_date'=> $this->effective_date??'N/A',
+            'amount'        => $this->amount??'N/A',
+            ];
     }
 }

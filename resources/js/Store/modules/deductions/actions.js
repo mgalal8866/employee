@@ -25,3 +25,26 @@ export const deletedeductions= ({ commit},id) => {
     .then(response => {commit('SET_Deductions', response.data.data) ;})
     .catch(error =>{ console.log(error);})
 }
+export const add_deductions = ({ commit},datadeductions) => {
+    const data = {employee_id:datadeductions.employee_id,deductions_id:datadeductions.deductions_id,amount:datadeductions.amount, effective_date:datadeductions.date, type:datadeductions.type};
+
+    try{
+            axios.post(baseUrl +'/add/empolyee/deductions' ,data,{headers: headers})
+            .then( response => {commit('SET_EmpolyeeDeductions', response.data.data);})
+        }catch(e){
+            if(e.response.state === 422){
+                console.log( 'errors');
+            }
+        };
+}
+
+export const getempolyeedeductions = ({ commit},id) => {
+    try{
+            axios.get(baseUrl +'/getbyid/empolyee/deductions/'+id ,{headers: headers})
+            .then(response => {commit('SET_EmpolyeeDeductions', response.data.data);})
+        }catch(e){
+            if(e.response.state === 422){
+                console.log( 'errors');
+            }
+    };
+}

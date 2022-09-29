@@ -7,6 +7,11 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import store from './Store/index';
 
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
+
 window.Vue = require('vue');
 Vue.use(VueRouter)
 
@@ -19,5 +24,6 @@ const app = new Vue({
     router: router,
     vuetify: Vuetify,
     store,
+    
     components: { App }
 });

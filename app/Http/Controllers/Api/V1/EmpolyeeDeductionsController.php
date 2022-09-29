@@ -19,4 +19,8 @@ class EmpolyeeDeductionsController extends Controller
     {
         return $this->EmpolyeeDeductions->Create($request) ;
     }
+    public function getdeductionsbyidemp($id)
+    {
+        return $this->EmpolyeeDeductions->GetByIdEmp($id) ;
+    }
 }

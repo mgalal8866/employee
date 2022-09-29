@@ -22,5 +22,9 @@ class EmpolyeeAllowancesController extends Controller
     {
         return $this->EmpolyeeAllowances->Create($request) ;
     }
+    public function getallowancesbyidemp($id)
+    {
+        return $this->EmpolyeeAllowances->GetByIdEmp($id) ;
+    }
 
 }

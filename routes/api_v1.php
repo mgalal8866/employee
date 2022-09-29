@@ -46,12 +46,14 @@ Route::middleware('VerifyAPIKey')->group(function() {
         Route::Post('/add/empolyee/allowances','store');
         Route::Post('/edit/empolyee/allowances','edit');
         Route::get('/delete/empolyee/allowances/{id?}','delete');
+        Route::get('/getbyid/empolyee/allowances/{id?}','getallowancesbyidemp');
     });
     Route::controller(EmpolyeeDeductionsController::class)->group(function() {
         Route::get('/get/empolyee/deductions', 'index');
         Route::Post('/add/empolyee/deductions','store');
         Route::Post('/edit/empolyee/deductions','edit');
         Route::get('/delete/empolyee/deductions/{id?}','delete');
+        Route::get('/getbyid/empolyee/deductions/{id?}','getdeductionsbyidemp');
     });
 });
 

@@ -21,7 +21,6 @@ class AllowancesController extends Controller
     return $this->Allowances->getallAllowances() ;
    }
 
-
    public function Store(AllowancesRequest $request)
    {
 
@@ -41,4 +40,5 @@ class AllowancesController extends Controller
    {
     return $this->Allowances->DeleteAllowances($id) ;
    }
+   
 }

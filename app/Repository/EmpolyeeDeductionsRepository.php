@@ -24,7 +24,7 @@ class EmpolyeeDeductionsRepository implements EmpolyeeDeductionsRepositoryInterf
     {
         $date = $this->model::create($requset->all());
        if($date){
-        return $this->Resource::collection($this->model::all());
+        return $this->Resource::collection($this->model::whereEmployeeId($date->employee_id)->get());
        };
     }
     public function Edit($requset)
@@ -41,6 +41,15 @@ class EmpolyeeDeductionsRepository implements EmpolyeeDeductionsRepositoryInterf
         $date->delete();
        if($date){
         return $this->Resource::collection($this->model::all());
+       };
+    }
+    public function GetByIdEmp($id)
+    {
+
+        $date = $this->model::whereEmployeeId($id)->get();
+
+       if($date){
+        return $this->Resource::collection($date);
        };
     }
 
